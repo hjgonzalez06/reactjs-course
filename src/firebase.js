@@ -21,3 +21,9 @@ export function loginWithGoogle(){
         .then(snap => snap.user);
 
 };
+
+export function logoutWithGoogle(){
+
+    firebase.auth().signOut();
+
+};
