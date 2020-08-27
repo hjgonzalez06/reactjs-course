@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Card from '../card/Card';
 import styles from './home.module.css';
 import { connect } from 'react-redux';
