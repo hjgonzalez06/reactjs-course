@@ -66,8 +66,8 @@ export let addToFavoritesAction = () => (dispatch, getState) => {
     dispatch({
         type: ADD_TO_FAVORITES,
         payload: {
-            array: {...array},
-            favorites: {...favorites}
+            array: [...array],
+            favorites: [...favorites]
         }
     });
 
