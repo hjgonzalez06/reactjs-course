@@ -76,7 +76,7 @@ export let restoreSessionAction = () => dispatch => {
 
 };
 
-export let doGoogleLogoutAction = () => dispatch => {
+export let doGoogleLogoutAction = () => (dispatch, getState) => {
 
     logoutWithGoogle();
 
