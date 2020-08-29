@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { updateDatabase } from '../firebase';
+import { updateDatabase, getFavorites } from '../firebase';
 
 let initialData = {
     fetching: false,
@@ -13,6 +13,9 @@ let GET_CHARACTERS_SUCCESS = "GET_CHARACTERS_SUCCESS";
 let GET_CHARACTERS_ERROR = "GET_CHARACTERS_ERROR";
 let REMOVE_CHARACTER = "REMOVE_CHARACTER";
 let ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
+let GET_FAVORITES = "GET_FAVORITES";
+let GET_FAVORITES_SUCCESS = "GET_FAVORITES_SUCCESS";
+let GET_FAVORITES_ERROR = "GET_FAVORITES_ERROR";
 
 export default function reducer(state=initialData,action){
 
@@ -27,6 +30,12 @@ export default function reducer(state=initialData,action){
             return {...state, array: action.payload};
         case ADD_TO_FAVORITES:
             return {...state, ...action.payload};
+        case GET_FAVORITES:
+            return {...state, fetching: true};
+        case GET_FAVORITES_SUCCESS:
+            return {...state, fetching: false, favorites: action.payload};
+        case GET_FAVORITES_ERROR:
+            return {...state, fetching: false, error: action.payload};
         default:
             return state;
     };
@@ -75,6 +84,31 @@ export let addToFavoritesAction = () => (dispatch, getState) => {
             favorites: [...favorites]
         }
     });
+
+};
+
+export let getFavoritesFromDatabaseAction = () => (dispatch,getState) => {
+
+    dispatch({
+        type: GET_FAVORITES
+    });
+
+    let { uid } = getState().user;
+
+    return getFavorites(uid)
+        .then( array => {
+            dispatch({
+                type: GET_FAVORITES_SUCCESS,
+                payload: [...array]
+            });
+        })
+        .catch( err => {
+            console.log(err);
+            dispatch({
+                type: GET_FAVORITES_ERROR,
+                payload: err.message
+            });
+        });
 
 };
 

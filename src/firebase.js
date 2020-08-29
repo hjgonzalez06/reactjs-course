@@ -31,6 +31,15 @@ export function logoutWithGoogle(){
 
 };
 
+export function getFavorites(uid){
+
+    return database.doc(uid).get()
+        .then( snap => {
+            return snap.data().array;
+        });
+
+};
+
 export function updateDatabase(array, uid){
 
     return database.doc(uid).set({array});

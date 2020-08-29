@@ -1,4 +1,5 @@
 import { loginWithGoogle, logoutWithGoogle } from "../firebase";
+import { getFavoritesFromDatabaseAction } from './charsDuck';
 
 let initialData = {
     fetching: false,
@@ -50,6 +51,7 @@ export let doGoogleLoginAction = () => (dispatch, getState) => {
                 }
             })
             saveStorage(getState());
+            getFavoritesFromDatabaseAction()(dispatch,getState);
         })
         .catch(err => {
             console.log(err);
