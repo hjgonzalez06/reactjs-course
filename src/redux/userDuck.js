@@ -82,10 +82,10 @@ export let doGoogleLogoutAction = () => (dispatch, getState) => {
 
     logoutWithGoogle();
 
+    localStorage.removeItem('storage');
+
     dispatch({
         type: LOG_OUT
     });
-
-    localStorage.removeItem('storage');
 
 };
